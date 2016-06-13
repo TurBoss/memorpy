@@ -20,8 +20,8 @@ def attachToGame():
 	mw = MemWorker("ff7")
 	
 	
-	addr = mw.Address("\x00DC0BE2")
-	print(addr)
+	#addr = mw.Address("\x00DC0BE2")
+	#print(addr)
 	text = input("String search :> ")
 	l=[x for x in mw.mem_search(text)]
 	a = [x for x in l]
