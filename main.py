@@ -1,46 +1,61 @@
 import shlex, subprocess
 import os
 
-from admin import checkAdmin
+from admin import check_admin
 import time
 
 from memWorker import MemWorker
+from address import Address
 
-
-def runGame(path):
-
-	rc = subprocess.Popen(path, shell=True)
+class TurBoDebugger:
+	
+	def __init__(self, proc_name):
 		
-	return rc
- 
-def attachToGame():
-	
-	time.sleep(5)
-	
-	mw = MemWorker("ff7")
-	
-	
-	#addr = mw.Address("\x00DC0BE2")
-	#print(addr)
-	text = input("String search :> ")
-	l=[x for x in mw.mem_search(text)]
-	a = [x for x in l]
+		self.mw = MemWorker(proc_name)
 		
-	print(l)
+	def run_game(self, path):
 
-	val = int(input("Select Offset :> "))
+		self.rc = subprocess.Popen(path, shell=True)
+	 
+		
+	def options(self):
+		
+		print("what to do?")
+		print("  1 search for text")
+		print("  2 go to offset")
+		self.option = int(input("1 or 2 :"))
+		
+		if self.option == 1:
+			self.search_text()
+		elif self.option == 2:
+			self.go_offset()
+		
+		
+	def search_text(self):
+		
+		text = input("Text search :> ")
+		
+		l= [x for x in self.mw.mem_search(text)]
+		
+		a = [x for x in l]
+			
+		print(l)
+		print(a)
 
-	a[val].dump()
+		val = int(input("Select Offset :> "))
 
-	#for x in a:
-	#	x.dump()
+		a[val].dump()
+
+	def go_offset(self):
+		
+		print("go for it")
 
 if __name__ == "__main__":
-
-	if checkAdmin():
-		game = runGame(os.path.join("C:/", "PortableApps", "Square Soft, Inc", "Final Fantasy VII", "ff7.exe"))
 	
-		if game:
-			attachToGame()
+	if check_admin():
+		
+		tb = TurBoDebugger("ff7")
+		tb.options()
+		
 	else:
 		print("Nseeds to be run as admin")

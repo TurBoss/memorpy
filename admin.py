@@ -12,8 +12,8 @@ ffi.cdef(
 C = ffi.dlopen('shell32.dll')
 
 
-def checkAdmin():
-    isAdmin = C.IsUserAnAdmin()
+def check_admin():
+    is_admin = C.IsUserAnAdmin()
     
-    return isAdmin
+    return is_admin
 
