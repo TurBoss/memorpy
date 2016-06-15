@@ -159,7 +159,7 @@ class Process(object):
         return res
 
     def read_bytes(self, address, bytes = 4):
-        address = int(address)
+        #address = int(address)
         if not self.isProcessOpen:
             raise ProcessException("Can't read_bytes(%s, bytes=%s), process %s is not open" % (address, bytes, self.pid))
         buffer = create_string_buffer(bytes)
@@ -176,14 +176,14 @@ class Process(object):
                     address += bytesread.value
                 if not len(data):
                     raise ProcessException('Error %s in ReadProcessMemory(%08x, %d, read=%d)' % (win32api.GetLastError(),
-                     address,
+                     int(address),
                      length,
                      bytesread.value))
                 return data
 
             data += buffer.raw[:bytesread.value].decode('ascii', 'replace')
             length -= bytesread.value
-            address += bytesread.value
+            address += str(bytesread.value)
         return data
 
     def read(self, address, type = 'uint', maxlen = 50):
@@ -200,7 +200,7 @@ class Process(object):
             if type == 'bytes' or type == 'b':
                 return self.read_bytes(int(address), bytes=maxlen)
             s, l = utils.type_unpack(type)
-            return struct.unpack(s, self.read_bytes(int(address), bytes=l))[0]
+            return struct.unpack(s, self.read_bytes(address, bytes=l))[0]
 
     def write(self, address, data, type = 'uint'):
         if type != 'bytes':

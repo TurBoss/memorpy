@@ -24,7 +24,7 @@ class Address(object):
     """ this class is used to have better representation of memory addresses """
 
     def __init__(self, value, process, default_type = 'uint'):
-        self.value = int(value)
+        self.value = value
         self.process = process
         self.default_type = default_type
         self.symbolic_name = None

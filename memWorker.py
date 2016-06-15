@@ -23,6 +23,7 @@ import struct
 from address import Address
 import binascii
 from structures import *
+
 logger = logging.getLogger('memorpy')
 
 class MemWorker(object):
@@ -44,6 +45,9 @@ class MemWorker(object):
     def Address(self, value, default_type = 'uint'):
         """ wrapper to instanciate an Address class for the memworker.process"""
         return Address(value, process=self.process, default_type=default_type)
+
+    def get_process(self):
+        return self.process
 
     def search_address(self, address):
         address = int(address)
