@@ -188,7 +188,7 @@ class Process(object):
 
     def read(self, address, type = 'uint', maxlen = 50):
         if type == 's' or type == 'string':
-            s = self.read_bytes(int(address), bytes=maxlen)
+            s = self.read_bytes(address, bytes=maxlen)
             news = ''
             for c in s:
                 if c == '\x00':

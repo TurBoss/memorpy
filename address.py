@@ -30,6 +30,7 @@ class Address(object):
         self.symbolic_name = None
 
     def read(self, type = None, maxlen = None):
+        """
         if maxlen is None:
             try:
                 int(type)
@@ -43,7 +44,8 @@ class Address(object):
         if not maxlen:
             return self.process.read(self.value, type=type)
         else:
-            return self.process.read(self.value, type=type, maxlen=maxlen)
+        """
+        return self.process.read(self.value, type=type, maxlen=maxlen)
 
     def write(self, data, type = None):
         if not type:
