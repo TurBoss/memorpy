@@ -198,7 +198,7 @@ class Process(object):
             raise ProcessException('string > maxlen')
         else:
             if type == 'bytes' or type == 'b':
-                return self.read_bytes(int(address), bytes=maxlen)
+                return self.read_bytes(address, bytes=maxlen)
             s, l = utils.type_unpack(type)
             return struct.unpack(s, self.read_bytes(address, bytes=l))[0]
 

@@ -61,9 +61,9 @@ class TurBoDebugger:
 
         self.address = Address(self.offset, self.proc)
 
-        data = self.address.read(type="string", maxlen= 100)
+        data = self.address.read(type="bytes")
 
-        print(type(data))
+        print(int(data))
 
 
 if __name__ == "__main__":
